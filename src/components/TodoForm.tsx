@@ -12,7 +12,7 @@ type TodoFormProps = {
 const TodoForm: React.FC<TodoFormProps> = ({ value, updateText, handleAction }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="relative">
+    <div className="relative" onClick={(e) => e.stopPropagation()}>
       <div className="h-[30px] bg-primary-100 flex mx-auto font-bold items-center justify-between px-2 text-secondary-100">
         <p>New todo</p>
         <button className="" onClick={() => dispatch(openModal())}>
