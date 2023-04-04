@@ -1,14 +1,13 @@
-import { useAppSelector } from '../hook';
+import { useAppDispatch, useAppSelector } from '../hook';
 import TodoItem from './TodoItem';
 
-type Props = {};
+const TodoList: React.FC = () => {
+  const list = useAppSelector((state) => state.todo.list);
 
-const TodoList: React.FC = (props: Props) => {
-  const todos = useAppSelector((state) => state.todo.list);
   return (
     <ul>
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
+      {list.map((item) => (
+        <TodoItem key={item.id} {...item} />
       ))}
     </ul>
   );

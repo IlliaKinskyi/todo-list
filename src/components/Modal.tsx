@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import TodoForm from '../components/TodoForm';
-import { addTodo } from '../store/todoSlice';
 import { useAppDispatch } from '../hook';
 import { openModal } from '../store/modalSlice';
 
@@ -12,7 +11,6 @@ const Modal: React.FC<Props> = () => {
 
   const handleAction = () => {
     if (text.trim().length) {
-      dispatch(addTodo(text));
       setText('');
       dispatch(openModal());
     }
