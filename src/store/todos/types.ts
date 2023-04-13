@@ -7,7 +7,7 @@ export enum Status {
 export type TodoType = {
     id: string;
     title: string;
-    completed: boolean;
+    completed?: boolean;
 }
 
 export interface TodoState {

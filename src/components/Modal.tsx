@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TodoForm from '../components/TodoForm';
 import { useAppDispatch } from '../hook';
 import { openModal } from '../store/modalSlice';
+import { fetchAddTodo } from '../store/todos/asyncActions';
 
 type Props = {};
 
@@ -9,8 +10,14 @@ const Modal: React.FC<Props> = () => {
   const [text, setText] = useState('');
   const dispatch = useAppDispatch();
 
-  const handleAction = () => {
+  const handleAction = async () => {
     if (text.trim().length) {
+      await dispatch(
+        fetchAddTodo({
+          title: text,
+          id: new Date().toISOString(),
+        }),
+      ).unwrap();
       setText('');
       dispatch(openModal());
     }
