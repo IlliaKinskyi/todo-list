@@ -16,6 +16,7 @@ const Modal: React.FC<Props> = () => {
         fetchAddTodo({
           title: text,
           id: new Date().toISOString(),
+          completed: false,
         }),
       ).unwrap();
       setText('');

@@ -21,3 +21,19 @@ export const fetchAddTodo = createAsyncThunk(
         }
     }
 )
+
+export const fetchDeleteTodo = createAsyncThunk(
+    'todos/fetchDeleteTodo',
+    async (id: string, {dispatch}) => {
+        const {data} = await axios.delete(`https://6427149c46fd35eb7c397933.mockapi.io/list/${id}`);
+        return data
+    }
+)
+
+export const fetchChangeToogle = createAsyncThunk(
+    'todos/fetchChangeToogle',
+    async (obj: TodoType) => {
+        const { data } = await axios.put(`https://6427149c46fd35eb7c397933.mockapi.io/list/${obj.id}`, {completed: !obj.completed});
+    return data;
+    }
+)

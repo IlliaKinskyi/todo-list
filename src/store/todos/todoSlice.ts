@@ -1,6 +1,6 @@
-import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Status, TodoState, TodoType } from './types'
-import { fetchAddTodo, fetchTodos } from './asyncActions'
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import { Status, TodoState } from './types'
+import { fetchAddTodo, fetchChangeToogle, fetchDeleteTodo, fetchTodos } from './asyncActions'
 
 
 const initialState:TodoState = {
@@ -13,14 +13,7 @@ export const todosAdapter = createEntityAdapter()
 export const todoSlice = createSlice({
     name: 'todos',
     initialState,
-    reducers: {
-        toogleComplete(state, action: PayloadAction<string>) {
-            const toogledTodo = state.list.find(todo => todo.id === action.payload)
-            if (toogledTodo) {
-                toogledTodo.completed = !toogledTodo.completed
-            }
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchTodos.pending, (state) => {
             state.status = Status.LOADING;
@@ -42,10 +35,19 @@ export const todoSlice = createSlice({
                     completed: false
                 })
             }
-        })
+        });
+        builder.addCase(fetchDeleteTodo.fulfilled, (state, action) => {
+            state.list = state.list.filter(obj => obj.id !== action.payload.id)
+        });
+        builder.addCase(fetchChangeToogle.fulfilled, (state, action) => {
+
+            const toogledTodo = state.list.find(obj => obj.id === action.payload.id)
+            if (toogledTodo) {
+                toogledTodo.completed = !toogledTodo.completed
+            }
+        });
     }
 })
 
-export const { toogleComplete } = todoSlice.actions
 
 export default todoSlice.reducer
